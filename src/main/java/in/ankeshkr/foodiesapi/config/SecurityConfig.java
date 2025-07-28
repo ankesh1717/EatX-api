@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/register", "/api/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/foods").permitAll() // 👈 Important!
                         .requestMatchers("/api/foods/**", "/api/orders/all", "/api/orders/status/**").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -50,6 +51,7 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
 
 
     @Bean
